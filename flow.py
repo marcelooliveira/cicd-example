@@ -1,17 +1,28 @@
-from prefect import flow
+# /// script
+# dependencies = ["prefect"]
+# ///
+
+"""
+A simple flow that says hello.
+"""
+
+from prefect import flow, get_run_logger, tags
 
 
-@flow(log_prints=True)
-def hello():
-    print("Hello!")
+# The name of the flow, `hello` is inferred from the function name by default
+# The arguments to the flow are type annotated and Prefect will validate them at runtime
+@flow
+def hello(name: str = "Marvin"):
+    get_run_logger().info(f"Hello, {name}!")
 
 
 if __name__ == "__main__":
-    hello.deploy(
-        name="my-deployment",
-        work_pool_name="my-work-pool",
-        image="prefecthq/prefect-client:3-latest",
-    )
+    # Run the flow
+    hello()  # Output: "Hello, Marvin!"
 
+    # Run the flow with a different argument
+    hello("Arthur")  # Output: "Hello, Arthur!"
 
-
+    # Run the flow with a "local" tag
+    with tags("local"):
+        hello()
