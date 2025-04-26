@@ -4,12 +4,9 @@ from prefect import flow
 def hello():
   print("Hello!")
 
-print("__name__:")
-print(__name__)
-
-if __name__ == "__main__":
-    hello.deploy(
-        name="cicd-deployment",
-        work_pool_name="my-work-pool",
-        image="mclricardo/cicd_image:latest",
-    )
+# if __name__ == "__main__":
+hello.deploy(
+    name="cicd-deployment",
+    work_pool_name="my-work-pool",
+    image="mclricardo/cicd_image:latest",
+)
