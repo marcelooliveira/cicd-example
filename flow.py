@@ -4,6 +4,9 @@ from prefect import flow
 def hello():
   print("Hello!")
 
+print("__name__:")
+print(__name__)
+
 if __name__ == "__main__":
     hello.deploy(
         name="cicd-deployment",
